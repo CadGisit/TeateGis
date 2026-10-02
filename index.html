@@ -72,10 +72,13 @@
     
     // OVERLAY 1: WMS Catasto Agenzia delle Entrate
     const wmsCatasto = L.tileLayer.wms('https://wms.cartografia.agenziaentrate.gov.it/inspire/wms/ows01.php', {
-      layers: 'CP.CadastralParcel',
+      layers: 'CP.CadastralZoning,CP.CadastralParcel',
       format: 'image/png',
       transparent: true,
-      attribution: 'Cartografia Catastale &copy; Agenzia delle Entrate'
+      version: '1.3.0',
+      minZoom: 14,
+      maxZoom: 19,
+      attribution: 'Cartografia Catastale © Agenzia delle Entrate'
     });
 
     // Controllo Layer
