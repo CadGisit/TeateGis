@@ -1,1 +1,41 @@
-TeateGis - WebGIS Chieti
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeateGis</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    html, body, #map { height: 100%; margin: 0; padding: 0; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Coordinate centro Chieti (Piazza Valignani / C.so Marrucino)
+    const map = L.map('map').setView([42.3510, 14.1675], 14);
+
+    // 1. Sfondo OpenStreetMap
+    const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    // 2. Layer WMS Catasto ufficiale (Agenzia delle Entrate)
+    const wmsCatasto = L.tileLayer.wms('https://wms.cartografia.agenziaentrate.gov.it/inspire/wms/ows01.php', {
+      layers: 'CP.CadastralParcel',
+      format: 'image/png',
+      transparent: true,
+      attribution: 'Agenzia delle Entrate'
+    });
+
+    // 3. Pannello Layer (TOC)
+    const baseMaps = { "OpenStreetMap": osm };
+    const overlayMaps = { "Particelle Catastali (WMS)": wmsCatasto };
+
+    L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+  </script>
+</body>
+</html>
