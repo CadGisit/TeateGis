@@ -43,7 +43,7 @@
       attribution: 'Tiles &copy; Esri'
     });
 
-    // BASE 3: Ortofoto Regione Abruzzo (WMS)
+    // BASE 3: Ortofoto Regione Abruzzo 2018-2019 (WMS)
     const ortofotoAbruzzo20182019 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
       layers: 'Mosaici_UTM-WGS84_2018_2019_Regione_Abruzzo.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
@@ -52,7 +52,7 @@
       attribution: 'Ortofoto &copy; Regione Abruzzo 2018-2019'
     });
 
-    // BASE 4: Ortofoto Regione Abruzzo (WMS)
+    // BASE 4: Ortofoto Regione Abruzzo 2022 (WMS)
       const ortofotoAbruzzo2022 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
       layers: 'Mosaici_UTM-WGS84_Ortofoto_2022_AGEA_RGB.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
@@ -61,7 +61,7 @@
       attribution: 'Ortofoto &copy; Regione Abruzzo 2022'
     });
     
-    // BASE 5: CTR 10k 2007 Regione Abruzzo (WMS)
+    // BASE 6: CTR 10k 2007 Regione Abruzzo (WMS)
       const ctr_10k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
       layers: 'Mosaici_UTM-WGS84_CTR_10K_2007.ecw', // Layer CTR 10k 2007
       format: 'image/jpeg',
@@ -70,7 +70,7 @@
       attribution: 'CTR &copy; 10k Regione Abruzzo 2007'
     });
     
-    // BASE 6: CTR 5k 2007 Regione Abruzzo (WMS)
+    // BASE 7: CTR 5k 2007 Regione Abruzzo (WMS)
       const ctr_5k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
       layers: 'Mosaici_UTM-WGS84_CTR_5K_2007.ecw', // Layer CTR 5k 2007
       format: 'image/jpeg',
