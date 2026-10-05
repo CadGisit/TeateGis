@@ -52,13 +52,13 @@
       attribution: 'Ortofoto &copy; Regione Abruzzo 2018-2019'
     });
 
-    // BASE 4: Ortofoto Regione Abruzzo 2022 (WMS)
-      const ortofotoAbruzzo2022 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
+    // BASE 4: Ortofoto AGEA 2022 (WMS)
+      const ortofoto_agea_2022 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
       layers: 'Mosaici_UTM-WGS84_Ortofoto_2022_AGEA_RGB.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
-      attribution: 'Ortofoto &copy; Regione Abruzzo 2022'
+      attribution: 'Ortofoto &copy; AGEA 2022'
     });
     
     // BASE 6: CTR 10k 2007 Regione Abruzzo (WMS)
@@ -95,7 +95,7 @@
       "Stradale (OpenStreetMap)": osm,
       "Satellite (Esri)": satellite,
       "Ortofoto Regione Abruzzo (2018-2019)": ortofotoAbruzzo20182019,
-      "Ortofoto Regione Abruzzo (2022)": ortofotoAbruzzo2022,
+      "Ortofoto AGEA (2022)": ortofoto_agea_2022,
       "CTR 10k Regione Abruzzo (2007)": ctr_10k_abruzzo_2007,
       "CTR 5k Regione Abruzzo (2007)": ctr_5k_abruzzo_2007
     };
