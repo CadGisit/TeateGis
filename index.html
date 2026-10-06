@@ -164,7 +164,7 @@
       "Catasto Particelle (WMS AdE)": wmsCatasto
     };
 
-    L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+    const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     L.control.scale({ imperial: false, metric: true }).addTo(map);
 
     // Caricamento del GeoJSON e filtro sul Comune di Chieti
@@ -183,7 +183,10 @@
             fill: false
           }
         }).addTo(map);
-
+      
+        // CENTRA E ADATTA LO ZOOM SUL POLIGONO FILTRATO
+        map.fitBounds(confineChieti.getBounds());
+        
         layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
       })
       .catch(err => console.error("Errore caricamento GeoJSON:", err));
