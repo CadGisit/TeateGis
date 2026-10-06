@@ -166,6 +166,27 @@
 
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     L.control.scale({ imperial: false, metric: true }).addTo(map);
+
+    // Caricamento del GeoJSON e filtro sul Comune di Chieti
+    fetch('ra_limiti_amministrativi.geojson')
+      .then(response => response.json())
+      .then(geojsonData => {
+        const confineChieti = L.geoJSON(geojsonData, {
+          filter: function(feature) {
+            const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
+            return nome && nome.toString().trim().toLowerCase() === 'chieti';
+          },
+          style: {
+            color: '#000000',
+            weight: 2.5,
+            opacity: 1.0,
+            fill: false
+          }
+        }).addTo(map);
+
+        layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
+      })
+      .catch(err => console.error("Errore caricamento GeoJSON:", err));
   </script>
 </body>
 </html>
