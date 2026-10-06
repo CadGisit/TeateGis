@@ -167,7 +167,7 @@
     const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     L.control.scale({ imperial: false, metric: true }).addTo(map);
 
-// Caricamento del GeoJSON e filtro sul Comune di Chieti
+    // Caricamento del GeoJSON e filtro sul Comune di Chieti
     fetch('ra_limiti_amministrativi.geojson')
       .then(response => response.json())
       .then(geojsonData => {
@@ -186,8 +186,7 @@
 
         layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
       })
-      .catch(err => console.error("Errore caricamento GeoJSON:", err));
-    
+      .catch(err => console.error("Errore caricamento GeoJSON:", err));    
   </script>
 </body>
 </html>
