@@ -167,29 +167,38 @@
     const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     L.control.scale({ imperial: false, metric: true }).addTo(map);
 
-    // Caricamento del GeoJSON e filtro sul Comune di Chieti
-    fetch('data/ra_limiti_amministrativi.geojson')
-      .then(response => response.json())
-      .then(geojsonData => {
-        const confineChieti = L.geoJSON(geojsonData, {
-          filter: function(feature) {
-            const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
-            return nome && nome.toString().trim().toLowerCase() === 'chieti';
-          },
-          style: {
-            color: '#000000',
-            weight: 2.5,
-            opacity: 1.0,
-            fill: false
-          }
-        }).addTo(map);
-      
-        // CENTRA E ADATTA LO ZOOM SUL POLIGONO FILTRATO
-        map.fitBounds(confineChieti.getBounds());
-        
-        layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
-      })
-      .catch(err => console.error("Errore caricamento GeoJSON:", err));
+// Caricamento del GeoJSON e filtro sul Comune di Chieti
+fetch('data/ra_limiti_amministrativi.geojson')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Errore HTTP nel caricamento: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(geojsonData => {
+    const confineChieti = L.geoJSON(geojsonData, {
+      filter: function(feature) {
+        const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
+        return nome && nome.toString().trim().toLowerCase() === 'chieti';
+      },
+      style: {
+        color: '#000000',
+        weight: 2.5,
+        opacity: 1.0,
+        fill: false
+      }
+    }).addTo(map);
+
+    // Centra e adatta lo zoom sul perimetro del comune
+    if (confineChieti.getLayers().length > 0) {
+      map.fitBounds(confineChieti.getBounds(), { padding: [20, 20] });
+    }
+
+    // Aggiunge la voce al selettore dei livelli
+    layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
+  })
+  .catch(err => console.error("Errore caricamento GeoJSON:", err));
+    
   </script>
 </body>
 </html>
