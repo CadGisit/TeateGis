@@ -168,7 +168,7 @@
     L.control.scale({ imperial: false, metric: true }).addTo(map);
 
     // Caricamento del GeoJSON e filtro sul Comune di Chieti
-    fetch('ra_limiti_amministrativi.geojson')
+    fetch('data/ra_limiti_amministrativi.geojson')
       .then(response => response.json())
       .then(geojsonData => {
         const confineChieti = L.geoJSON(geojsonData, {
