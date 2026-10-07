@@ -184,6 +184,10 @@
           }
         }).addTo(map);
 
+        if (confineChieti.getLayers().length > 0) {
+          map.fitBounds(confineChieti.getBounds());
+        }
+        
         layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
       })
       .catch(err => console.error("Errore caricamento GeoJSON:", err));    
