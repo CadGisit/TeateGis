@@ -184,12 +184,10 @@
           }
         }).addTo(map);
 
-        // --- INIZIO CODICE AGGIUNTO ---
         // Se il layer non è vuoto, adatta la mappa alle sue dimensioni
         if (confineChieti.getLayers().length > 0) {
           map.fitBounds(confineChieti.getBounds());
         }
-        // --- FINE CODICE AGGIUNTO ---
 
         layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
       })
