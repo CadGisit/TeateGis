@@ -167,10 +167,15 @@
     const layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
     L.control.scale({ imperial: false, metric: true }).addTo(map);
 
-    // Caricamento del GeoJSON e filtro sul Comune di Chieti
+// Caricamento del GeoJSON (file unico usato per due layer diversi)
     fetch('ra_limiti_amministrativi.geojson')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error('Errore HTTP ' + response.status);
+        return response.json();
+      })
       .then(geojsonData => {
+        
+        // --- LAYER 1: COMUNE DI CHIETI (Attivo di default) ---
         const confineChieti = L.geoJSON(geojsonData, {
           filter: function(feature) {
             const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
@@ -182,18 +187,35 @@
             opacity: 1.0,
             fill: false
           }
-        }).addTo(map);
+        }).addTo(map); // <-- Ha .addTo(map), parte acceso
 
-        // --- INIZIO CODICE AGGIUNTO ---
-        // Se il layer non è vuoto, adatta la mappa alle sue dimensioni
+        // Centra la mappa su Chieti
         if (confineChieti.getLayers().length > 0) {
           map.fitBounds(confineChieti.getBounds());
         }
-        // --- FINE CODICE AGGIUNTO ---
 
+        // --- LAYER 2: ALTRI COMUNI (Spento di default) ---
+        const comuniConfinanti = L.geoJSON(geojsonData, {
+          filter: function(feature) {
+            const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
+            // Il simbolo !== significa "DIVERSO DA"
+            return nome && nome.toString().trim().toLowerCase() !== 'chieti';
+          },
+          style: {
+            color: '#666666',   // Bordo grigio
+            weight: 1,          // Più sottile del confine di Chieti
+            opacity: 0.8,
+            fillColor: '#000000',
+            fillOpacity: 0.05   // Leggerissima velatura grigia interna
+          }
+        }); // <-- NON ha .addTo(map), quindi parte spento
+
+        // --- AGGIUNTA DEI LAYER AL MENU IN ALTO A DESTRA ---
         layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
+        layerControl.addOverlay(comuniConfinanti, "Comuni confinanti");
+
       })
-      .catch(err => console.error("Errore caricamento GeoJSON:", err));    
+      .catch(err => console.error("Errore caricamento GeoJSON:", err));
   </script>
 </body>
 </html>
