@@ -171,7 +171,7 @@
     fetch('ra_limiti_amministrativi.geojson')
       .then(response => response.json())
       .then(geojsonData => {
-        const confineChieti = L.geoJSON(geojsonData, {
+        const confine_chieti = L.geoJSON(geojsonData, {
           filter: function(feature) {
             const nome = feature.properties && (feature.properties.nome || feature.properties.NOME);
             return nome && nome.toString().trim().toLowerCase() === 'chieti';
@@ -184,11 +184,11 @@
           }
         }).addTo(map);
 
-        if (confineChieti.getLayers().length > 0) {
-          map.fitBounds(confineChieti.getBounds());
+        if (confine_chieti.getLayers().length > 0) {
+          map.fitBounds(confine_chieti.getBounds());
         }
         
-        layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
+        layerControl.addOverlay(confine_chieti, "Confine Comune di Chieti");
       })
       .catch(err => console.error("Errore caricamento GeoJSON:", err));    
   </script>
