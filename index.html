@@ -28,7 +28,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
-    // Centro mappa iniziale (verrà sovrascritto al caricamento del GeoJSON)
+    // Centro mappa su Chieti (viene eseguito subito, poi sovrascritto dal fitBounds)
     const map = L.map('map').setView([42.3510, 14.1675], 14);
 
     // BASE 1: OpenStreetMap
@@ -45,7 +45,7 @@
 
     // BASE 3: Ortofoto AGEA 2022 (WMS)
     const ortofoto_agea_2022 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_Ortofoto_2022_AGEA_RGB.ecw', 
+      layers: 'Mosaici_UTM-WGS84_Ortofoto_2022_AGEA_RGB.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -54,7 +54,7 @@
     
     // BASE 4: Ortofoto Regione Abruzzo 2018-2019 (WMS)
     const ortofoto_regione_abruzzo_2018_2019 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_2018_2019_Regione_Abruzzo.ecw', 
+      layers: 'Mosaici_UTM-WGS84_2018_2019_Regione_Abruzzo.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -63,7 +63,7 @@
 
     // BASE 5: Ortofoto AGEA 2019 (WMS)
     const ortofoto_agea_2019 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_Ortofoto_2019_AGEA_RGB.ecw', 
+      layers: 'Mosaici_UTM-WGS84_Ortofoto_2019_AGEA_RGB.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -72,7 +72,7 @@
 
     // BASE 6: Ortofoto AGEA 2016 (WMS)
     const ortofoto_agea_2016 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_.', 
+      layers: 'Mosaici_UTM-WGS84_.', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -81,7 +81,7 @@
     
     // BASE 7: Ortofoto AGEA 2013 (WMS)
     const ortofoto_agea_2013 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_Ortofoto2013.ecw', 
+      layers: 'Mosaici_UTM-WGS84_Ortofoto2013.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -90,7 +90,7 @@
 
     // BASE 8: Ortofoto AGEA 2010 (WMS)
     const ortofoto_agea_2010 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_italia_centrale.ecw', 
+      layers: 'Mosaici_UTM-WGS84_italia_centrale.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -99,7 +99,7 @@
 
     // BASE 9: Ortofoto AGEA 2009 (WMS)
     const ortofoto_agea_2009 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_Orto2009_AGEA.ecw', 
+      layers: 'Mosaici_UTM-WGS84_Orto2009_AGEA.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -108,7 +108,7 @@
 
     // BASE 10: Ortofoto Regione Abruzzo 2001 (WMS)
     const ortofoto_regione_abruzzo_2001 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_2001_RA.ecw', 
+      layers: 'Mosaici_UTM-WGS84_2001_RA.ecw', // Layer ortofoto regionale ad alta risoluzione
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -116,8 +116,8 @@
     });
     
     // BASE 11: CTR 10k 2007 Regione Abruzzo (WMS)
-    const ctr_10k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_CTR_10K_2007.ecw', 
+      const ctr_10k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
+      layers: 'Mosaici_UTM-WGS84_CTR_10K_2007.ecw', // Layer CTR 10k 2007
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -125,8 +125,8 @@
     });
     
     // BASE 12: CTR 5k 2007 Regione Abruzzo (WMS)
-    const ctr_5k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
-      layers: 'Mosaici_UTM-WGS84_CTR_5K_2007.ecw', 
+      const ctr_5k_abruzzo_2007 = L.tileLayer.wms('https://geocatalogo.regione.abruzzo.it/erdas-iws/ogc/wms/', {
+      layers: 'Mosaici_UTM-WGS84_CTR_5K_2007.ecw', // Layer CTR 5k 2007
       format: 'image/jpeg',
       transparent: false,
       version: '1.3.0',
@@ -169,10 +169,7 @@
 
     // Caricamento del GeoJSON e filtro sul Comune di Chieti
     fetch('ra_limiti_amministrativi.geojson')
-      .then(response => {
-        if (!response.ok) throw new Error('Errore HTTP ' + response.status);
-        return response.json();
-      })
+      .then(response => response.json())
       .then(geojsonData => {
         const confineChieti = L.geoJSON(geojsonData, {
           filter: function(feature) {
@@ -187,15 +184,16 @@
           }
         }).addTo(map);
 
-        // Se ha trovato e disegnato il poligono, centra la vista su di esso
+        // --- INIZIO CODICE AGGIUNTO ---
+        // Se il layer non è vuoto, adatta la mappa alle sue dimensioni
         if (confineChieti.getLayers().length > 0) {
           map.fitBounds(confineChieti.getBounds());
         }
+        // --- FINE CODICE AGGIUNTO ---
 
         layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
       })
-      .catch(err => console.error("Errore caricamento GeoJSON:", err));
-      
+      .catch(err => console.error("Errore caricamento GeoJSON:", err));    
   </script>
 </body>
 </html>
