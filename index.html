@@ -29,7 +29,7 @@
 
   <script>
     // Centro mappa su Chieti (viene eseguito subito, poi sovrascritto dal fitBounds)
-    //const map = L.map('map').setView([42.3510, 14.1675], 14);
+    const map = L.map('map').setView([42.3510, 14.1675], 14);
 
     // BASE 1: OpenStreetMap
     const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -190,7 +190,7 @@
           map.fitBounds(confineChieti.getBounds());
         }
         // --- FINE CODICE AGGIUNTO ---
-        
+
         layerControl.addOverlay(confineChieti, "Confine Comune di Chieti");
       })
       .catch(err => console.error("Errore caricamento GeoJSON:", err));    
